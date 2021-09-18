@@ -1,6 +1,6 @@
 import {createStore} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import reducers from './reducers/';
+import reducers from './reducers';
 import middleware from './middleware';
 
 export default function configureStore() {
@@ -8,7 +8,6 @@ export default function configureStore() {
     reducers,
     composeWithDevTools(
       middleware
-      // other store enhancers if any
     )
   )
 }

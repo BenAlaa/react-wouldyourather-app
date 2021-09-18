@@ -4,7 +4,7 @@ import {
   _getQuestions,
   _saveQuestion,
   _saveQuestionAnswer,
-  formatQuestion
+  _addNewUser
 } from './_Data'
 
 export const getInitialData = () => Promise.all([
@@ -17,4 +17,4 @@ export const getInitialData = () => Promise.all([
 
 export const saveQuestion = (info) => _saveQuestion(info)
 export const saveQuestionAnswer = (info) => _saveQuestionAnswer(info)
-export const formatNewQuestion = (info) => formatQuestion(info)
+export const addNewUser = (info) => _addNewUser(info)
