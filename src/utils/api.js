@@ -4,7 +4,8 @@ import {
   _getQuestions,
   _saveQuestion,
   _saveQuestionAnswer,
-  _addNewUser
+  _addNewUser,
+  _loginUser
 } from './_Data'
 
 export const getInitialData = () => Promise.all([
@@ -18,3 +19,4 @@ export const getInitialData = () => Promise.all([
 export const saveQuestion = (info) => _saveQuestion(info)
 export const saveQuestionAnswer = (info) => _saveQuestionAnswer(info)
 export const addNewUser = (info) => _addNewUser(info)
+export const loginUser = (info) => _loginUser(info);

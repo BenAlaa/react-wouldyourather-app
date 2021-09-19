@@ -1,11 +1,11 @@
 import { Suspense, lazy, Fragment } from "react";
 import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom";
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import LoadingBar from 'react-redux-loading';
 import Spinner from "../components/Spinner/Spinner";
 import Navbar from '../components/Navbar';
 import AddBtn from '../components/AddQuestionBtn';
-// import PrivateRoute from './privateRoute';
+import PrivateRoute from './privateRoute';
 
 
 const Login = lazy(() => import("../Pages/Login.page"));
@@ -15,12 +15,11 @@ const NewQuestion = lazy(() => import("../Pages/NewQuestion.page"));
 const Question = lazy(() => import("../Pages/Question.page"));
 const NotFound = lazy(() => import("../Pages/NotFound.page"));
 const Routes = (props) => {
-  // const user = useSelector(state => state.authedUser);
-  // const isAuthorized = user ? true: false
+  const user = useSelector(state => state.authedUser);
   return (
   <BrowserRouter>
     <LoadingBar />
-    <Navbar />
+    {user && <Navbar />}
     <Fragment>
       <Suspense
         fallback={
@@ -31,22 +30,21 @@ const Routes = (props) => {
       >
         <Switch>
           <Route exact path="/login" component={() => <Login {...props} />} />
-          <Route exact path="/dashboard" component={() => <Dashboard {...props} />} />
-          <Route exact path="/leaderboard" component={() => <Leaderboard {...props} />} />
-          <Route exact path="/add" component={() => <NewQuestion {...props} />} />
-          <Route exact path="/question/:id" component={() => <Question {...props} />} />
-          {/* <Route exact path="/login" component={() => <Login/>} />
-          <Route exact path="/dashboard" component={PrivateRoute(Dashboard, isAuthorized)}/>
-          <Route exact path="/leaderboard" component={PrivateRoute(Leaderboard, isAuthorized)} />
-          <Route exact path="/new-question" component={PrivateRoute(NewQuestion, isAuthorized)} />
-          <Route exact path="/question/:id" component={PrivateRoute(Question, isAuthorized)} /> */}
+          <PrivateRoute exact path="/dashboard" component={() => <Dashboard {...props} />} />
+          <PrivateRoute exact path="/leaderboard" component={() => <Leaderboard {...props} />} />
+          <PrivateRoute exact path="/add" component={() => <NewQuestion {...props} />} />
+          <PrivateRoute exact path="/question/:id" component={() => <Question {...props} />} />
+          {/* <Route exact path="/dashboard" component={() => <Dashboard {...props} />} /> */}
+          {/* <Route exact path="/leaderboard" component={() => <Leaderboard {...props} />} /> */}
+          {/* <Route exact path="/add" component={() => <NewQuestion {...props} />} /> */}
+          {/* <Route exact path="/question/:id" component={() => <Question {...props} />} /> */}
           <Redirect from="/" exact to="/dashboard" />
           <Route path="/not-found" component={() => <NotFound />} />
           <Redirect from="*" to="/not-found" />
         </Switch>
       </Suspense>
     </Fragment>
-    <AddBtn />
+    {user && <AddBtn />}
   </BrowserRouter>
 )}
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import {toast} from 'react-toastify';
@@ -23,6 +23,9 @@ const NewQuestion = (props) => {
   });
   const dispatch = useDispatch();
   const history = useHistory();
+  useEffect(() => {
+    document.title = 'iVote | Add Question'
+  })
   const handleChange = (event) => {
     const { name, value } = event.target;
     setErrors({...errors, [name]: ''})
@@ -40,7 +43,6 @@ const NewQuestion = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValid = validateData();
-    console.log({isValid})
     if(isValid) {
       dispatch(
         handleAddQuestion({

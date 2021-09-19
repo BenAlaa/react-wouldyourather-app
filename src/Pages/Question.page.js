@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AnsweredQuestion from "../components/AnswerdQuestion";
@@ -13,6 +14,9 @@ const Question = (props) => {
   );
   const question = questions[id];
   const user = users[authedUser];
+  useEffect(() => {
+    document.title = 'iVote | Question Details'
+  })
   if (!question) history.push("/not-found");
 
   const isAnswered = user?.answers[question.id] ? true : false;

@@ -16,11 +16,13 @@ export const _getQuestions = () => new Promise((res, rej) => {
 export const _addNewUser = (user) => new Promise((res, rej) => {
   const existedUser = Object.keys(users).filter(id => (
     users[id].email === user.email
-  ));
+  ))[0];
+  console.log({user, existedUser})
   setTimeout(() => {
-    if(existedUser) rej({'EMAIL_EXISTS': {message: 'This email already exists'}})
+    if(existedUser) return rej({message: 'This email already exists'})
     else {
       const formatedUser = formateNewUser(user);
+      console.log({formatedUser})
       users = {
         ...users,
         [formatedUser.id]: {
@@ -35,13 +37,13 @@ export const _addNewUser = (user) => new Promise((res, rej) => {
 export const _loginUser = ({email, password}) => new Promise((res, rej) => {
   const user = Object.keys(users).filter(id => (
     users[id].email === email && users[id].password === password
-  ));
+    ))[0];
   setTimeout(() => {
-    if(!user) rej({'NOT_AUTHED': {message: 'Incorrect Email or Password'}})
+    if(!user) rej({message: 'Incorrect Email or Password'})
     else {
       res(user)
     }
-  })
+  }, 500)
 
 })
 export const _saveQuestion = (question) => new Promise((res, rej) => {

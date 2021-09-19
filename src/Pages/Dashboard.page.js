@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import { Tab } from '@headlessui/react';
 import { useSelector } from 'react-redux';
 import { classNames } from '../utils/helpers';
@@ -26,6 +26,10 @@ const Dashboard = (props) => {
       value: answeredQuestions
     }
   ]
+
+  useEffect(() => {
+    document.title = 'iVote | Dashboard'
+  })
 
   const getTabDataCount = (key) => categories?.find(cat => cat.key === key).value.length;
   return (

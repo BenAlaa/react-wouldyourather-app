@@ -12,7 +12,7 @@ export const handleInitialData = () => (dispatch) => {
   getInitialData().then (({questions, users}) => {
     dispatch(receiveQuestions(questions))
     dispatch(receiveUsers(users))
-    dispatch(loginUser(AUTHED_ID));
+    // dispatch(loginUser(AUTHED_ID));
     dispatch(hideLoading())
   })
 }

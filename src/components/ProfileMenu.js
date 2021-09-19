@@ -1,10 +1,17 @@
 import { Fragment } from 'react';
+import {  useDispatch } from 'react-redux';
 import { Menu, Transition } from '@headlessui/react';
 import {classNames} from '../utils/helpers';
+import {logoutUser} from '../Store/actions/authedUser';
 
 
-const ProfileMenu = ({user}) => (
-  <Menu as="div" className="ml-3 relative">
+
+const ProfileMenu = ({user}) => {
+  const dispatch = useDispatch()
+  const handleLogout = () => dispatch(logoutUser())
+
+  return (
+    <Menu as="div" className="ml-3 relative">
     <div>
       <Menu.Button className="flex items-center md:space-x-2 text-sm p-1 border-2 border-white rounded-full text-white hover:bg-white hover:text-indigo-800 focus:outline-none transition duration-300 ease-in-out">
         <span className="sr-only">Open user menu</span>
@@ -29,7 +36,8 @@ const ProfileMenu = ({user}) => (
         <Menu.Item>
           {({ active }) => (
             <div
-              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+            onClick={handleLogout}
+              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 cursor-pointer')}
             >
               Log out
             </div>
@@ -38,6 +46,7 @@ const ProfileMenu = ({user}) => (
       </Menu.Items>
     </Transition>
   </Menu>
-)
+  )
+}
  
 export default ProfileMenu;
