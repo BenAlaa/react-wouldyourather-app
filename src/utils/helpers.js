@@ -28,3 +28,15 @@ export const formateNewUser = ({name, email, password, avatarURL}) => ({
 export const classNames = (...classes) => classes.filter(Boolean).join(' ');
 
 export const formateQuestions = (questions) => Object.keys(questions).map(key => questions[key]);
+
+export const calculateScore = (user) => {
+  const answersCount = Object.keys(user.answers).length;
+  const questionsCount = Object.keys(user.questions).length;
+  const score = answersCount + questionsCount;
+  return {
+    ...user,
+    answersCount,
+    questionsCount,
+    score
+  }
+}

@@ -12,7 +12,7 @@ function App(props) {
   return (
     <div className="App">
       <Routes />
-      <ToastContainer />
+      <ToastContainer theme="dark" />
     </div>
   );
 }

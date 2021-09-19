@@ -1,10 +1,11 @@
 import { Suspense, lazy, Fragment } from "react";
 import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom";
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import LoadingBar from 'react-redux-loading';
 import Spinner from "../components/Spinner/Spinner";
 import Navbar from '../components/Navbar';
-import PrivateRoute from './privateRoute';
+import AddBtn from '../components/AddQuestionBtn';
+// import PrivateRoute from './privateRoute';
 
 
 const Login = lazy(() => import("../Pages/Login.page"));
@@ -45,6 +46,7 @@ const Routes = (props) => {
         </Switch>
       </Suspense>
     </Fragment>
+    <AddBtn />
   </BrowserRouter>
 )}
 

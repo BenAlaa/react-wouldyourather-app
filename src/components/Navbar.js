@@ -1,10 +1,10 @@
-import { Fragment } from 'react'
 import {Link, useLocation} from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 import {IoCloseSharp,IoMenuSharp} from 'react-icons/io5';
-import {classNames} from '../utils/helpers';
-import Logo from '../assets/logo.png';
+import NavLink from './NavLink';
+import ProfileMenu from './ProfileMenu';
+// import Logo from '../assets/logo.png';
 import LightLogo from '../assets/logo-light.png';
 
 
@@ -15,13 +15,13 @@ const routes = [
 ]
 
 
-const NavBar = (props) => {
+const NavBar = () => {
   const location = useLocation();
   const {authedUser, users} = useSelector(({authedUser, users}) => ({authedUser, users}));
   const user = users[authedUser]
 
   return ( 
-    <Disclosure as="nav" className="bg-indigo-700 shadow-md">
+    <Disclosure as="nav" className="bg-indigo-800 shadow-md">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -61,7 +61,7 @@ const NavBar = (props) => {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden bg-indigo-800">
+          <Disclosure.Panel className="sm:hidden bg-indigo-900">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {routes.map(({name, path}) => (
                 <NavLink {...{name, path, currentPath: location.pathname, isFull: true}} key={name}/>
@@ -73,68 +73,5 @@ const NavBar = (props) => {
     </Disclosure>
    );
 }
-
-const NavLink = ({name, path, currentPath, isFull = false}) => {
-  const isActiveRoute = (path) => path === currentPath;
-  return (
-    <Link
-      to={path}
-      className={classNames(
-        isActiveRoute(path) ? 'bg-white text-indigo-500 transition duration-300 ease-in-out' : 'text-white hover:bg-indigo-300 hover:bg-opacity-50 hover:text-white transition duration-200 ease-in-out',
-        'px-3 py-2 rounded-md text-sm font-medium', isFull ? 'block' : ''
-      )}
-    >
-      {name}
-    </Link>
-  )
-}
-
-const ProfileMenu = ({user}) => (
-  <Menu as="div" className="ml-3 relative">
-    <div>
-      <Menu.Button className="flex items-center md:space-x-2 text-sm p-1 border-2 border-white rounded-full text-white hover:bg-white hover:text-indigo-800 focus:outline-none transition duration-300 ease-in-out">
-        <span className="sr-only">Open user menu</span>
-        <div className="hidden md:block">{user?.name}</div>
-        <img
-          className="h-8 w-8 rounded-full"
-          src={user?.avatarURL}
-          alt=""
-        />
-      </Menu.Button>
-    </div>
-    <Transition
-      as={Fragment}
-      enter="transition ease-out duration-100"
-      enterFrom="transform opacity-0 scale-95"
-      enterTo="transform opacity-100 scale-100"
-      leave="transition ease-in duration-75"
-      leaveFrom="transform opacity-100 scale-100"
-      leaveTo="transform opacity-0 scale-95"
-    >
-      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-        <Menu.Item>
-          {({ active }) => (
-            <a
-              href="#"
-              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-            >
-              Your Profile
-            </a>
-          )}
-        </Menu.Item>
-        <Menu.Item>
-          {({ active }) => (
-            <a
-              href="#"
-              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-            >
-              Log out
-            </a>
-          )}
-        </Menu.Item>
-      </Menu.Items>
-    </Transition>
-  </Menu>
-)
  
 export default NavBar;
